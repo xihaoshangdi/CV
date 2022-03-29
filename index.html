@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<script id="allow-copy_script">(function agent() {
+    let unlock = false
+    document.addEventListener('allow_copy', (event) => {
+        unlock = event.detail.unlock
+    })
+
+    const copyEvents = [
+        'copy',
+        'cut',
+        'contextmenu',
+        'selectstart',
+        'mousedown',
+        'mouseup',
+        'mousemove',
+        'keydown',
+        'keypress',
+        'keyup',
+    ]
+    const rejectOtherHandlers = (e) => {
+        if (unlock) {
+            e.stopPropagation()
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation()
+        }
+    }
+    copyEvents.forEach((evt) => {
+        document.documentElement.addEventListener(evt, rejectOtherHandlers, {
+            capture: true,
+        })
+    })
+})()</script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>个人简历</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /*css reset*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ul {
+            margin-left: 1em;
+        }
+
+        li {
+            margin-top: 10px;
+        }
+
+        /*layout*/
+        body {
+            display: grid;
+            grid: auto auto / 1fr 300px 700px 1fr;
+        }
+
+        header {
+            background: lightgreen;
+            grid-column: 1 / span 4;
+            grid-row: 1;
+        }
+
+        main {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        aside {
+
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        @media (max-width: 1000px) {
+            body {
+                grid: 100px 400px / 1fr 200px 400px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                grid: auto auto auto / 1fr;
+                padding: 0 10px 30px 10px;
+            }
+
+            header {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            main {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            aside {
+                grid-column: 1;
+                grid-row: 3;
+            }
+        }
+
+        /*common*/
+        body {
+            font: 14px/1.5 Arial;
+            color: #333;
+            padding-bottom: 30px;
+        }
+
+        /*page*/
+        header {
+            text-align: center;
+            padding: 30px;
+            background: #444;
+            color: #fff;
+        }
+
+        header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        header figcaption {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        header figure p {
+            margin-top: 10px;
+            color: #ccc;
+        }
+
+        section {
+            display: grid;
+            grid: auto auto / 50px 120px 1fr;
+            align-items: center;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        section > .iconfont {
+            grid-row: 1;
+            grid-column: 1;
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: #66a9a3;
+            border-radius: 50%;
+            font-size: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        section > h2 {
+            grid-row: 1;
+            grid-column: 2;
+            font-size: 18px;
+        }
+
+        section > hr {
+            grid-row: 1;
+            grid-column: 3;
+            border: none;
+            height: 3px;
+            background: #66a9a3;
+        }
+
+        section > .detail {
+            grid-column: 2/span 2
+        }
+
+        section .icon-list {
+            display: flex;
+            align-items: center;
+        }
+
+        section .icon-list .iconfont {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        section .icon-list .resume {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        section .skill-bar dt {
+            margin-top: 16px;
+        }
+
+        section .skill-bar dd {
+            height: 3px;
+            background: #eaeaea;
+        }
+
+        section .skill-bar dd div {
+            height: 100%;
+            background: #66a9a3;
+            margin-top: 10px;
+        }
+
+        section .timeline-panel {
+            display: grid;
+            grid: auto auto / 120px 1fr auto;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        section .timeline-panel .date {
+            grid-row: 1;
+            grid-column: 1;
+        }
+
+        section .timeline-panel > h3 {
+            grid-row: 1;
+            grid-column: 2;
+        }
+
+        section .timeline-panel .intro {
+            grid-row: 1;
+            grid-column: 3;
+            color: #666;
+        }
+
+        section .timeline-panel .detail {
+            grid-row: 2;
+            grid-column: 2/span 2;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body cz-shortcut-listen="true">
+<header>
+    <figure>
+        <img src="./user.jpeg" alt="头像">
+        <figcaption>吴家平</figcaption>
+        <p>应聘前端工程师</p>
+    </figure>
+</header>
+<main>
+    <section>
+        <span class="iconfont icon-experience"></span>
+        <h2>工作经历</h2>
+        <hr>
+        <div class="detail">
+            <div class="timeline-panel">
+                <div class="date">2021/04-至今</div>
+                <h3>紫光软件（天津）</h3>
+                <p class="intro">前端开发工程师</p>
+                <div class="detail">
+                    带领团队负责紫光档案管理系统的前台部分，主要是根据业务的需要和功能需求的不断壮大，接手由于layui导致的前端无工程化无模块化开发的技术负债，在保证迭代和需求开发的前提下，制定重构计划，小范围的重构和引入工程化。
+                </div>
+            </div>
+        </div>
+        <div class="detail">
+            <div class="timeline-panel">
+                <div class="date">2020/04-2021/04</div>
+                <h3>天津盛扬信远科技有限公司</h3>
+                <p class="intro">前端开发工程师</p>
+                <div class="detail">
+                    独立负责 编辑器 的 数据存储 开发和前端页面开发工作 负责团队基础组件库建设、难点技术攻克、文档撰写，确保需求功能稳定实现 作为前端骨干，负责给前端较弱的同事进行培训，提高其前端开发工作效率
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <span class="iconfont icon-project"></span>
+        <h2>项目经历</h2>
+        <hr>
+        <div class="detail">
+            <div class="timeline-panel">
+                <div class="date">2021/04~至今</div>
+                <h3>紫光档案管理系统</h3>
+                <div class="detail">
+                    <ul>
+                        <li>项目介绍： 紫光档案系统在全国行业处于领先地位，专门服务于大型央企事业单位。如国家电网，华电，中国移动。类似于 erp，
+                            业务复杂，功能强大，迭代了 25 年。由于信创需要，19 年重新落地 java 版。 其核心业务是对电子档案的收管存用， 还有一些通用模块，
+                            如人员管理、统计模块、流程管理等等。
+                        </li>
+                        <li>技术栈：layui rollup rxjs webcomponents</li>
+                        <li>工作职责: 入职后的主要工作就是在满足需求迭代的基础上，带领团队重构代码，增加代码的可读性和可维护性。我带领团队在保证需求迭代的情况下， 重新划分工期，
+                            调研技术方案，设计基础架构，重新开发了一套基于proxy的响应式底层框架，在架构上补充了一层虚拟DOM。实现了虚拟DOM变动的Diff。模版引擎采用正则重新实现了一套。
+                            虚拟DOM通过Diff将变动的结果重新渲染到页面上。采用了Webcomponenets作为组件化方案。经过整体的重构，整体代码量压缩了60%，HTML压缩了87%。CSS压缩了60%。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-panel">
+                <div class="date">2021/02~2021/04</div>
+                <h3>阅读口语</h3>
+                <div class="detail">
+                    <ul>
+                        <li>项目介绍： 一款移动端 小程序 应用。 项目采用前后端分离架构，前端部分为小程序。
+                        </li>
+                        <li>技术栈：移动端，小程序</li>
+                        <li>工作职责: 在整个项目的开发过程中，我的工作主要负责小程序端的业务功能开发。
+                            业务功能主要包含语音的录制，上传以及对口语的打分，精度对比和基本的页面开发项目支撑多个民航院校的使用，并压承载，以及弱网环境的兼容问题都处理的比较好</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-panel">
+                <div class="date">2020/04~2020/12</div>
+                <h3>通航运行模拟系统</h3>
+                <div class="detail">
+                    <ul>
+                        <li>项目介绍： 作为国内首个《机场运行控制模拟仿真系统》的实验室系统的子系统，主要是用于民航方面的模拟使。是基于 Vue / Electron / NodeJS 的开发的桌面级应用。
+                            项目采用前后端分离架构，前端部分具有地图位置实时绘制，脚本数据编辑，IPC通信，甘特图数据热更新，自动抽取本地数据核验等功能，接口采用Restful规范定义。
+                        </li>
+                        <li>技术栈： Vue / Electron / NodeJS</li>
+                        <li>主体工作：在整个项目的开发过程中，我的工作主要是处理有难度的功能和组件化基建的开发。
+                            独立开发整个脚本数据编辑器(技术栈为Vue/TypeScript/IndexDB)。
+                            开发主体的地图绘制功能(核心库为 D3/Leaflet)， 数据核验功能(底层环境为Node)， 甘特图，
+                            在项目的进行过程让我对组件封装以及Leaflet地图库，D3.js都有了很多新的实践和了解。
+                            在业务之外的通用代码进行了抽离并进行部分开源。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <span class="iconfont icon-project"></span>
+        <h2>开源项目</h2>
+        <hr>
+        <div class="detail">
+            <div class="timeline-panel">
+                <h3>甘特图</h3>
+                <div class="detail">
+                    <ul>
+                        <li>
+                            具有随机取色，首行是否固定，弹窗浮现，内容插槽固定的宽松甘特图，弹窗采用了动态生成Vue组件的方式，
+                            利用Promise控制弹窗组件的生命周期，甘特图的数据采用插槽的方式注入自定义组件，满足了复杂的业务需求
+                        </li>
+                        <li>
+                            <a style="text-decoration: none;color: #333;" href="https://xihaoshangdi.github.io/vue-gantt-chart/">项目预览</a>
+                        </li>
+                        <li>
+                            <a style="text-decoration: none;color: #333;" href="https://github.com/xihaoshangdi/Vue-gantt/">源码链接</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-panel">
+                <h3>地图追踪绘制</h3>
+                <div class="detail">
+                <ul>
+                    <li>
+                        可以根据时间或者位置信息动态的绘制Icon的移动或者动画路径，采用了D3结合Leaflet，
+                        重新封装了一层动画层用于提供给D3绘制SVG，并将绘制的SVG层重新刷入到leaflet的SVG层中。
+                    </li>
+                    <li>
+                        <a style="text-decoration: none;color: #333;" href="https://github.com/xihaoshangdi/map-move-plugin">源码链接</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            <div class="timeline-panel">
+                <h3>Tools</h3>
+                <div class="detail">
+                    <ul>
+                        <li>封装了一部分常用的文件方法用于补足一些低版本不支持的文件操作的NPM包</li>
+                        <li>
+                            <a style="text-decoration: none;color: #333;" href="https://www.npmjs.com/package/file-tools-js">源码链接</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <span class="iconfont icon-education"></span>
+        <h2>学习经历</h2>
+        <hr>
+        <div class="detail">
+            <div class="timeline-panel">
+                <div class="date">09/2016~06/2020</div>
+                <h3>天津大学仁爱学院</h3>
+                <p class="intro">软件工程专业</p>
+                <div class="detail">
+                    成绩排名专业前10%.
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<aside>
+    <section>
+        <span class="iconfont icon-personal"></span>
+        <h2>基本信息</h2>
+        <hr>
+        <div class="detail">
+            <div class="icon-list"><span class="iconfont icon-phone"></span>18102036153</div>
+            <div class="icon-list"><span class="resume icon-resume-juejin"></span>
+                <a style="text-decoration: none;color: #333;" href="https://juejin.cn/user/2383396941336599">掘金</a>
+            </div>
+            <div class="icon-list"><span class="resume icon-resume-zhihu"></span>
+                <a style="text-decoration: none;color: #333;" href="https://www.zhihu.com/people/wu-yan-yu-49-15">知乎</a>
+            </div>
+            <div class="icon-list"><span class="resume icon-resume-github"></span>
+                <a style="text-decoration: none;color: #333;" href="https://github.com/xihaoshangdi">GItHub</a>
+            </div>
+            <div class="icon-list"><span class="iconfont icon-education"></span>本科</div>
+        </div>
+    </section>
+    <section>
+        <span class="iconfont icon-introduction"></span>
+        <h2>掌握技能</h2>
+        <hr>
+        <div class="detail">
+            <ul>
+                <li>掌握HTML5/CSS3，熟悉传统布局、Flex布局、Grid布局、移动端适配，大屏适配等</li>
+                <li>熟悉Vue技术栈，Vue-Router、Vuex、Vue-CLI、Vite及相关流行库的使用，理解其重要概念</li>
+                <li>熟悉Node.js开发，掌握Express 框架，能搭建基础后台开发</li>
+                <li>熟悉前后端交互技术，包括 AJAX、跨域、前端路由、Cookie、Session、Websocket、SSE、fetch 等</li>
+                <li> 熟悉 ES6，包括 let / Promise / await / 析构赋值</li>
+                <li>了解 TypeScript 的使用</li>
+                <li>了解 Webpack 的配置和优化</li>
+            </ul>
+        </div>
+    </section>
+    <section style="display: none">
+        <span class="iconfont icon-skills"></span>
+        <h2>技能图谱</h2>
+        <hr>
+        <div class="detail">
+            <dl class="skill-bar">
+                <dt>JavaScript</dt>
+                <dd>
+                    <div style="width:85%"></div>
+                </dd>
+                <dt>CSS3</dt>
+                <dd>
+                    <div style="width:65%"></div>
+                </dd>
+                <dt>Node</dt>
+                <dd>
+                    <div style="width:60%"></div>
+                </dd>
+                <dt>Vue</dt>
+                <dd>
+                    <div style="width:80%"></div>
+                </dd>
+            </dl>
+        </div>
+    </section>
+</aside>
+
+</body>
+</html>
